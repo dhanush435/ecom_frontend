@@ -273,21 +273,21 @@ const Cart = () => {
 
   useEffect(() => {
     const fetchImagesAndUpdateCart = async () => {
+      if (cart.length === 0) {
+        setCartItems([]);
+        return;
+      }
+
       console.log("Cart", cart);
       try {
-        const response = await axios.get("https://ecom-q0mb.onrender.com/api/products");
-        const backendProductIds = response.data.map((product) => product.id);
-
-        const updatedCartItems = cart.filter((item) => backendProductIds.includes(item.id));
+        // Use cached images if available
         const cartItemsWithImages = await Promise.all(
-          updatedCartItems.map(async (item) => {
+          cart.map(async (item) => {
             try {
               const response = await axios.get(
                 `https://ecom-q0mb.onrender.com/api/product/${item.id}/image`,
                 { responseType: "blob" }
               );
-              const imageFile = await converUrlToFile(response.data, response.data.imageName);
-              setCartImage(imageFile)
               const imageUrl = URL.createObjectURL(response.data);
               return { ...item, imageUrl };
             } catch (error) {
@@ -296,16 +296,13 @@ const Cart = () => {
             }
           })
         );
-        console.log("cart",cart)
         setCartItems(cartItemsWithImages);
       } catch (error) {
         console.error("Error fetching product data:", error);
       }
     };
 
-    if (cart.length) {
-      fetchImagesAndUpdateCart();
-    }
+    fetchImagesAndUpdateCart();
   }, [cart]);
 
   useEffect(() => {
