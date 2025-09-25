@@ -11,7 +11,7 @@ import UpdateProduct from "./components/UpdateProduct";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
-const port = https://ecom-q0mb.onrender.com/api/products;
+
 
 
 function App() {
