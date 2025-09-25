@@ -11,5 +11,11 @@ export default defineConfig({
   server: {
     host: true,
     port: process.env.PORT || 3000,
+    allowedHosts: [
+      'localhost',
+      '127.0.0.1',
+      'ecom-frontend-41xp.onrender.com',
+      '.onrender.com'
+    ]
   },
 })
