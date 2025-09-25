@@ -3,7 +3,11 @@ import react from '@vitejs/plugin-react-swc'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react({
+      jsxRuntime: 'automatic'
+    })
+  ],
   preview: {
     host: true,
     port: process.env.PORT || 3000,
@@ -18,4 +22,8 @@ export default defineConfig({
       '.onrender.com'
     ]
   },
+  build: {
+    target: 'esnext',
+    minify: 'esbuild'
+  }
 })
